@@ -17,7 +17,7 @@ FIFO stack left to write. When an operator appears (such as '+', '-', 'x'),
 is pushed back onto the stack (Since the stack is FIFO, the result is now the
 next number to be popped out).
 For example the equation (1+7)*(35/7) in Reverse Polish notation would be
-	1 7 + 35 7 /
+	1 7 + 35 7 / *
 
 The stack uses the type double (floating point), so decimal points are allowed.
 
