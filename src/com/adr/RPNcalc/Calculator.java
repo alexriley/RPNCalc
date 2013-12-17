@@ -1,11 +1,12 @@
 package com.adr.RPNcalc;
 
-/*	File: Calculator
+/*	File: Calculator.java
  * 	Original Author: Alex Riley <alex@riley.cc>
  * 	First Written: 14 December 2013
- * 	Last Modified: 15 December 2013
+ * 	Last Modified: 17 December 2013
  * 	Description: This is part of an android app called 'RPN Calc'. The app 
- * 	uses java class RPNStack to make a Reverse Polish Notation Calculator
+ * 	uses java class RPNStack (also in this source code) to make a Reverse 
+ * 	Polish Notation Calculator
  * ______________________________________________________________________________
  *     This file is part of RPN Calc.
  *
@@ -36,6 +37,9 @@ public class Calculator extends Activity
 {	RPNStack numbers = new RPNStack();
 	String CurrentNum = new String("");
 	TextView display;
+    Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8;
+    Button Button9, Button0, ButtonPlus, ButtonMinus, ButtonMultiply, ButtonDivide;
+	Button ButtonPoint, ButtonNeg, ButtonSpace, ButtonBack, ButtonClear;
    
     @Override
     protected void onCreate(Bundle savedInstanceState) 
@@ -45,73 +49,68 @@ public class Calculator extends Activity
         setContentView(R.layout.activity_calculator);
 
         display = (TextView) findViewById(R.id.textView1);
-    	display.setText(numbers+" "+CurrentNum);
-        Button Button1 = (Button) findViewById(R.id.button1);
-    	Button Button2 = (Button) findViewById(R.id.button2);
-    	Button Button3 = (Button) findViewById(R.id.button3);
-        Button Button4 = (Button) findViewById(R.id.button4);
-    	Button Button5 = (Button) findViewById(R.id.button5);
-    	Button Button6 = (Button) findViewById(R.id.button6);
-        Button Button7 = (Button) findViewById(R.id.button7);
-    	Button Button8 = (Button) findViewById(R.id.button8);
-    	Button Button9 = (Button) findViewById(R.id.button9);
-    	Button Button0 = (Button) findViewById(R.id.button0);
+    	displayRefresh();
+        Button1 = (Button) findViewById(R.id.button1);
+    	Button2 = (Button) findViewById(R.id.button2);
+    	Button3 = (Button) findViewById(R.id.button3);
+        Button4 = (Button) findViewById(R.id.button4);
+    	Button5 = (Button) findViewById(R.id.button5);
+    	Button6 = (Button) findViewById(R.id.button6);
+        Button7 = (Button) findViewById(R.id.button7);
+    	Button8 = (Button) findViewById(R.id.button8);
+    	Button9 = (Button) findViewById(R.id.button9);
+    	Button0 = (Button) findViewById(R.id.button0);
     	
-    	Button ButtonPlus = (Button) findViewById(R.id.buttonPlus);	
-    	Button ButtonMinus = (Button) findViewById(R.id.buttonMinus);
-    	Button ButtonMultiply = (Button) findViewById(R.id.buttonMultiply);
-    	Button ButtonDivide = (Button) findViewById(R.id.buttonDivide);
-    	Button ButtonPoint = (Button) findViewById(R.id.buttonPoint);
-    	Button ButtonNeg = (Button) findViewById(R.id.buttonNeg);
-    	Button ButtonSpace = (Button) findViewById(R.id.buttonSpace);
-    	Button ButtonBack = (Button) findViewById(R.id.buttonBack);
-    	Button ButtonClear = (Button) findViewById(R.id.buttonClear);
+    	ButtonPlus = (Button) findViewById(R.id.buttonPlus);	
+    	ButtonMinus = (Button) findViewById(R.id.buttonMinus);
+    	ButtonMultiply = (Button) findViewById(R.id.buttonMultiply);
+    	ButtonDivide = (Button) findViewById(R.id.buttonDivide);
+    	ButtonPoint = (Button) findViewById(R.id.buttonPoint);
+    	ButtonNeg = (Button) findViewById(R.id.buttonNeg);
+    	ButtonSpace = (Button) findViewById(R.id.buttonSpace);
+    	ButtonBack = (Button) findViewById(R.id.buttonBack);
+    	ButtonClear = (Button) findViewById(R.id.buttonClear);
     	
         Button1.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-				NumPressed('1');
+				ButtonPressed('1');
 			}
 		});
         Button2.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{// TODO Auto-generated method stub
-        		CurrentNum +="2";
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('2');
 			}
 		});
         Button3.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="3";
-		        display.setText(inputs() + CurrentNum);
+        		ButtonPressed('3');
 			}
 		}); 
         Button4.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="4";
-		        display.setText(inputs() + CurrentNum);
+        		ButtonPressed('4');
 			}
 		}); 
         Button5.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="5";
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('5');
 			}
 		}); 
         Button6.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="6";
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('6');
 			}
 		}); 
 
@@ -119,32 +118,28 @@ public class Calculator extends Activity
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="7";
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('7');
 			}
 		}); 
         Button8.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="8";
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('8');
 			}
 		}); 
         Button9.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="9";
-		        display.setText(inputs() + CurrentNum);
+        		ButtonPressed('9');
 			}
 		}); 
         Button0.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +="0";
-		        display.setText(inputs() + CurrentNum);
+        		ButtonPressed('0');
 			}
 		}); 
         
@@ -152,9 +147,7 @@ public class Calculator extends Activity
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-				PushCurrentNum();
-				numbers.op('+');
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('+');
 			}
 		});
         
@@ -162,9 +155,9 @@ public class Calculator extends Activity
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-				PushCurrentNum();
-				numbers.op('-');
-		        display.setText(inputs() + CurrentNum);
+        	//Note: ButtonPressed('-') is the minus operator
+        	//ButtonPressed('n') is the negative sign
+				ButtonPressed('-');
 			}
 		});
         ButtonMultiply.setOnClickListener(new View.OnClickListener() 
@@ -172,8 +165,7 @@ public class Calculator extends Activity
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
 				PushCurrentNum();
-				numbers.op('*');
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('*');
 			}
 		});
         
@@ -181,25 +173,24 @@ public class Calculator extends Activity
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-				PushCurrentNum();
-				numbers.op('/');
-		        display.setText(inputs() + CurrentNum);
+				ButtonPressed('/');
+
 			}
 		});
     	ButtonPoint.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum +=".";
-		        display.setText(inputs() + CurrentNum);
+        		ButtonPressed('.');
 			}
 		}); 
     	ButtonNeg.setOnClickListener(new View.OnClickListener() 
         {	@Override
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
-        		CurrentNum = "-" + CurrentNum;
-		        display.setText(inputs() + CurrentNum);
+        		//Note: ButtonPressed('-') is the minus operator
+        		//ButtonPressed('n') is the negative sign
+        		ButtonPressed('n');
 			}
 		}); 
         ButtonSpace.setOnClickListener(new View.OnClickListener() 
@@ -207,7 +198,7 @@ public class Calculator extends Activity
 			public void onClick(View v) 
         	{	// TODO Auto-generated method stub
 				PushCurrentNum();
-		        display.setText(inputs() + CurrentNum);
+		        displayRefresh();
 			}
 		});
         ButtonBack.setOnClickListener(new View.OnClickListener() 
@@ -216,8 +207,7 @@ public class Calculator extends Activity
         	{	// TODO Auto-generated method stub
         		if(CurrentNum.length() > 0) 
         			CurrentNum = CurrentNum.subSequence(0, CurrentNum.length()-1).toString();
-        		
-        		display.setText(inputs() + CurrentNum);
+        		displayRefresh();
         		
         	}
 		});
@@ -227,10 +217,10 @@ public class Calculator extends Activity
         	{	// TODO Auto-generated method stub
 				CurrentNum = "";
 				numbers.clear();
-		        display.setText(inputs() + CurrentNum);				
+		        displayRefresh();				
 			}
 		});
-        
+
         
     }
     @Override
@@ -246,9 +236,24 @@ public class Calculator extends Activity
     	
     }
     
-    private void NumPressed(char in)
-   {	displayRefresh();
-        display.setText(inputs() + CurrentNum);
+    private void ButtonPressed(char in)
+   {	switch(in)
+    	{
+	//Note: ButtonPressed('-') is the minus operator
+	//ButtonPressed('n') is the negative sign
+    		case '1': case '2': case '3': case '4': case '5':
+    		case '6': case '7': case '8': case '9': case '0':
+    		case '.': case 'n':
+    			if(in == 'n') CurrentNum = '-'+CurrentNum;
+    			else CurrentNum += in;
+    			break;
+    		case '+': case '-': case '/': case '*':
+    			PushCurrentNum();
+    			numbers.op(in);
+    			break;
+    	}
+    	displayRefresh();
+
     }
     private void PushCurrentNum()
     {	if(CurrentNum.length() > 0)

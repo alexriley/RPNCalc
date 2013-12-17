@@ -2,12 +2,11 @@ package com.adr.RPNcalc;
 /*	File: Stack.java 
  *	Original Author: Alex Riley <alex@riley.cc> 
  * 	First Written: 14 December 2013
- * 	Last Modified: 15 December 2013
+ * 	Last Modified: 17 December 2013
  * 	Description: Basic FIFO Stack with push, pop, peek, etc.
  * 	This is further expanded in RPNStack to included Reverse Polish Notation 
  * 	operators. This was originally for use in a RPN Calculator for Android.
  * 
- * 	Should an invalid operation be given (such as popping an empty stack), this is 
  * ___________________________________________________________________________________
  *    This file is part of RPN Calc.
  *
@@ -64,7 +63,7 @@ public class Stack
     }
     
     public int length()
-    {	return scount;
+    {	return scount+1;
     }
     public String toString()
     {	String s = new String("");

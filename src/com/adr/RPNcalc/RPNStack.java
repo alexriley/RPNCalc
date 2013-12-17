@@ -3,13 +3,10 @@ package com.adr.RPNcalc;
 /*	File: RPNStack.java
  * 	Original Author: Alex Riley <alex@riley.cc>
  * 	First Written: 14 December 2013
- * 	Last Modified: 15 December 2013
- * 	Description: extending Stack, which is a basic FIFO Stack, to include 
- * 	Reverse Polish Notation operators. Reverse Polish Notation is based on
- * 	the notation written by Jan Łukasiewicz to create a parentheses-free 
- * 	mathematical notation. For example, the equation 8 + 16 in RPN would be
- * 	8 16 +. (In Polish notation it would be + 8 16). (21+7)*(6+2) in RPN is
- * 	21 7 + 6 2 + *. For more information, Google 'Reverse Polish Notation'.
+ * 	Last Modified: 17 December 2013
+ * 	Description: extending Stack (not the java library Stack, I wrote a 
+ * 	FIFO Stack class which is included in this) to include Reverse Polish
+ *  Notation operators.	
  * ______________________________________________________________________________
  *     This file is part of RPN Calc.
  *
@@ -30,27 +27,28 @@ package com.adr.RPNcalc;
 
 public class RPNStack extends Stack
 {
-    public double op(char s)
+    public int op(char s)
     {	if(this.scount > 0)
     	{	double b=pop(),a=pop();
     		switch(s)
     		{	case '+':
     				push(a+b);
-    				return a+b;
+    				return 0;
     			case '-':
     				push(a-b);
-    				return a-b;
+    				return 0;
     			case '*':
     				push(a*b);
-    				return(a*b);
+    				return 0;
     			case '/':
     				push(a/b);
-    				return(a/b);
+    				return 0;
     			case '%':
     				push(a%b);
-    				return(a%b);
+    				return 0;
     		}
     	}
-    	return 0;
+    	else return 1; 
+    	return 1;
     }
 }
