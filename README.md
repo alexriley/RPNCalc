@@ -12,10 +12,10 @@ based on the prefix notation first invented by Polish logician Jan Łukasiewicz.
 Rather than writing '1+2' for an equation, Reverse Polish Notation says '1 2 +'.
 (Polish Notation would be '+ 1 2') This allows for equations without parentheses
 or rules about order of operations. As numbers are stated, they are added to a 
-FIFO stack left to write. When an operator appears (such as '+', '-', 'x'),
-2 numbers from the stack are popped, the operation is performed, and the result
-is pushed back onto the stack (Since the stack is FIFO, the result is now the
-next number to be popped out).
+LIFO stack. When an operator appears (such as '+', '-', '*'), 2 numbers from the
+stack are popped, the operation is performed, and the result is pushed back onto 
+the stack (Since the stack is LIFO, the result is now the next number to be 
+popped out).
 For example the equation (1+7)*(35/7) in Reverse Polish notation would be
 	1 7 + 35 7 / *
 
