@@ -1,11 +1,9 @@
 package adr.com.rpncalc;
 /*	File: Stack.java 
- *	Original Author: Alex Riley <alex@riley.cc> 
- * 	First Written: 14 December 2013
- * 	Last Modified: 17 December 2013
+ *	Original Author: Alex Riley <alex@riley.cc>
  * 	Description: Basic FIFO Stack with push, pop, peek, etc.
  * 	This is further expanded in RPNStack to included Reverse Polish Notation 
- * 	operators. This was originally for use in a RPN Calculator for Android.
+ * 	operators.
  * 
  * ___________________________________________________________________________________
  *    This file is part of RPN Calc.
@@ -21,7 +19,7 @@ package adr.com.rpncalc;
  *    GNU General Public License for more details.
  *
  *    You should have received a copy of the GNU General Public License
- *    along with RPN Calc.  If not, see <http://www.gnu.org/licenses/>.
+ *    along with RPN Calc. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
 import java.lang.String;
@@ -29,10 +27,9 @@ import java.lang.reflect.Array;
 public class Stack 
 {
 	double[] stack = new double[50];
-	int scount = -1;
-	//String input;
+	int scount = 0;
 	public Stack()
-	{	scount = -1;
+	{	scount = 0;
 		stack[0] = 0;
 	}
 	
@@ -42,33 +39,31 @@ public class Stack
 	}
     public void push(double a)
     {	if(scount < 50) 
-    	{	
-    		stack[++scount] = a;
-    	
+    	{	stack[scount++] = a;
     	}
     }
     
     public double pop()
-    {	if(scount > -1) return stack[scount--];
+    {	if(scount > 0) return stack[--scount];
     	else return 0; 
     }
     public double peek()
-    {	if(scount > -1) return stack[scount];
+    {	if(scount > 0) return stack[scount - 1];
     	else return 0;
     
     }
     
     public void clear()
-    {	scount = -1;
+    {	scount = 0;
     }
     
     public int length()
-    {	return scount+1;
+    {	return scount;
     }
     public String toString()
     {	String s = new String("");
-    	if(scount == -1) return "";
-    	for(int i = 0; i <= scount; i++)
+    	if(scount == 0) return "";
+    	for(int i = 0; i < scount; i++)
     	{	s = s+Double.toString(stack[i])+" ";
     	}
     	

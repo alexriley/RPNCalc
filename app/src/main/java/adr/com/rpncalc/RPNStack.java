@@ -26,9 +26,9 @@ package adr.com.rpncalc;
  */
 
 public class RPNStack extends Stack
-{
+{   //op() returns 0 if operation performed, 1 otherwise
     public int op(char s)
-    {	if(this.scount > 0)
+    {	if(this.scount > 1)
     	{	double b=pop(),a=pop();
     		switch(s)
     		{	case '+':

@@ -24,13 +24,17 @@ package adr.com.rpncalc;
  *    along with RPN Calc.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.lang.String;
 
 
@@ -38,19 +42,27 @@ public class Calculator extends ActionBarActivity
 {	RPNStack numbers = new RPNStack();
     String CurrentNum = new String("");
     TextView display;
+
+    Toast InvalidOpToast;
+
     Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8;
     Button Button9, Button0, ButtonPlus, ButtonMinus, ButtonMultiply, ButtonDivide;
     Button ButtonPoint, ButtonNeg, ButtonSpace, ButtonBack, ButtonClear;
+
+    public static final String TAG = "Calculator";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
+        Context context = getApplicationContext();
+        InvalidOpToast = Toast.makeText(context,"Operations require 2 numbers",Toast.LENGTH_LONG);
         setContentView(R.layout.activity_calculator);
-
+        Log.v(TAG,"Application started");
         display = (TextView) findViewById(R.id.textView1);
         displayRefresh();
+
         Button1 = (Button) findViewById(R.id.button1);
         Button2 = (Button) findViewById(R.id.button2);
         Button3 = (Button) findViewById(R.id.button3);
@@ -61,6 +73,7 @@ public class Calculator extends ActionBarActivity
         Button8 = (Button) findViewById(R.id.button8);
         Button9 = (Button) findViewById(R.id.button9);
         Button0 = (Button) findViewById(R.id.button0);
+
 
         ButtonPlus = (Button) findViewById(R.id.buttonPlus);
         ButtonMinus = (Button) findViewById(R.id.buttonMinus);
@@ -239,29 +252,36 @@ public class Calculator extends ActionBarActivity
 
     private void ButtonPressed(char in)
     {	switch(in)
-    {
-        //Note: ButtonPressed('-') is the minus operator
-        //ButtonPressed('n') is the negative sign
-        case '1': case '2': case '3': case '4': case '5':
-        case '6': case '7': case '8': case '9': case '0':
-        case '.': case 'n':
-        if(in == 'n') CurrentNum = '-'+CurrentNum;
-        else CurrentNum += in;
-        break;
-        case '+': case '-': case '/': case '*':
-        PushCurrentNum();
-        numbers.op(in);
-        break;
-    }
+        {
+            //Note: ButtonPressed('-') is the minus operator
+            //ButtonPressed('n') is the negative sign
+            case '1': case '2': case '3': case '4': case '5':
+            case '6': case '7': case '8': case '9': case '0':
+            case '.':
+                CurrentNum += in;
+                break;
+            case 'n':
+                CurrentNum = '-'+CurrentNum;
+                break;
+            case '+': case '-': case '/': case '*':
+                PushCurrentNum();
+                Log.v(TAG,"Operation entered");
+                if(numbers.op(in) == 1)
+                {   InvalidOpToast.show();
+                    Log.v(TAG,"TESTING: Toast called");
+                }
+                break;
+
+        }
         displayRefresh();
 
     }
     private void PushCurrentNum()
     {	if(CurrentNum.length() > 0)
-    {	Double a = Double.parseDouble(CurrentNum);
-        CurrentNum="";
-        numbers.push(a);
-    }
+        {	Double a = Double.parseDouble(CurrentNum);
+            CurrentNum="";
+            numbers.push(a);
+        }
     }
 
 
