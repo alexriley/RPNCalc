@@ -39,7 +39,8 @@ public class Stack
 	}
     public void push(double a)
     {	if(scount < 50) 
-    	{	stack[scount++] = a;
+    	{	stack[scount] = a;
+            scount++;
     	}
     }
     
@@ -64,7 +65,9 @@ public class Stack
     {	String s = new String("");
     	if(scount == 0) return "";
     	for(int i = 0; i < scount; i++)
-    	{	s = s+Double.toString(stack[i])+" ";
+    	{	if(stack[i] == (long)stack[i]) //testing if stack[i] is an Integer (so that 3 is printed instead of 3.0)
+                s=s+String.format("%d", (long)stack[i]) + " ";
+            else s = s+Double.toString(stack[i])+" ";
     	}
     	
     	return s;

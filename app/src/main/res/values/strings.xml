@@ -18,10 +18,13 @@
     <string name="Minus">-</string>
     <string name="Multiply">×</string>
     <string name="Divide">÷</string>
-    <string name="Neg">−</string>
+    <string name="Neg">(+/−)</string>
     <string name="Point">.</string>
     <string name="Mod">%</string>
     <string name="Back">BACK</string>
     <string name="Space">SPACE</string>
     <string name="Clear">CLEAR</string>
+    <string name="ExampleText">Example Text</string>
+    <string name="ErrorInsuffcientNumbers">ERROR: Operations require 2 numbers</string>
+    <string name="Error2DecimalPoints">ERROR: Multiple Decimal Points</string>
 </resources>

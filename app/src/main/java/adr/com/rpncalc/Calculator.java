@@ -28,6 +28,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -42,8 +43,7 @@ public class Calculator extends ActionBarActivity
 {	RPNStack numbers = new RPNStack();
     String CurrentNum = new String("");
     TextView display;
-
-    Toast InvalidOpToast;
+    Context context;
 
     Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8;
     Button Button9, Button0, ButtonPlus, ButtonMinus, ButtonMultiply, ButtonDivide;
@@ -56,8 +56,7 @@ public class Calculator extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Context context = getApplicationContext();
-        InvalidOpToast = Toast.makeText(context,"Operations require 2 numbers",Toast.LENGTH_LONG);
+        context = getApplicationContext();
         setContentView(R.layout.activity_calculator);
         Log.v(TAG,"Application started");
         display = (TextView) findViewById(R.id.textView1);
@@ -261,14 +260,14 @@ public class Calculator extends ActionBarActivity
                 CurrentNum += in;
                 break;
             case 'n':
-                CurrentNum = '-'+CurrentNum;
+                if(CurrentNum.startsWith("-")) CurrentNum = CurrentNum.substring(1);
+                else CurrentNum = '-'+CurrentNum;
                 break;
             case '+': case '-': case '/': case '*':
                 PushCurrentNum();
                 Log.v(TAG,"Operation entered");
                 if(numbers.op(in) == 1)
-                {   InvalidOpToast.show();
-                    Log.v(TAG,"TESTING: Toast called");
+                {   Toast.makeText(context,getString(R.string.ErrorInsuffcientNumbers),Toast.LENGTH_LONG).show();
                 }
                 break;
 
@@ -276,12 +275,22 @@ public class Calculator extends ActionBarActivity
         displayRefresh();
 
     }
-    private void PushCurrentNum()
+    private boolean PushCurrentNum()
     {	if(CurrentNum.length() > 0)
-        {	Double a = Double.parseDouble(CurrentNum);
-            CurrentNum="";
-            numbers.push(a);
+        {	try //Making sure what is being pushed is of number form. I.e. Doesn't contain 2 decimal points
+            {   Double a = Double.parseDouble(CurrentNum);
+                CurrentNum="";
+                numbers.push(a);
+                return true;
+            }
+            catch(NumberFormatException nfe)
+            {   Toast.makeText(context, R.string.Error2DecimalPoints,Toast.LENGTH_LONG).show();
+                CurrentNum="";
+                return false;
+            }
+
         }
+        return false;
     }
 
 

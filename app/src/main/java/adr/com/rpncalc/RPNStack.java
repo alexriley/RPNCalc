@@ -2,11 +2,7 @@ package adr.com.rpncalc;
 
 /*	File: RPNStack.java
  * 	Original Author: Alex Riley <alex@riley.cc>
- * 	First Written: 14 December 2013
- * 	Last Modified: 17 December 2013
- * 	Description: extending Stack (not the java library Stack, I wrote a 
- * 	FIFO Stack class which is included in this) to include Reverse Polish
- *  Notation operators.	
+ * 	Description: Reverse Polish Notation stack
  * ______________________________________________________________________________
  *     This file is part of RPN Calc.
  *
