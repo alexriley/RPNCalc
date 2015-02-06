@@ -86,42 +86,42 @@ public class Calculator extends ActionBarActivity
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('1');
+                NumberPressed('1');
             }
         });
         Button2.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {// TODO Auto-generated method stub
-                ButtonPressed('2');
+                NumberPressed('2');
             }
         });
         Button3.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('3');
+                NumberPressed('3');
             }
         });
         Button4.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('4');
+                NumberPressed('4');
             }
         });
         Button5.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('5');
+                NumberPressed('5');
             }
         });
         Button6.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('6');
+                NumberPressed('6');
             }
         });
 
@@ -129,28 +129,28 @@ public class Calculator extends ActionBarActivity
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('7');
+                NumberPressed('7');
             }
         });
         Button8.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('8');
+                NumberPressed('8');
             }
         });
         Button9.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('9');
+                NumberPressed('9');
             }
         });
         Button0.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('0');
+                NumberPressed('0');
             }
         });
 
@@ -189,16 +189,16 @@ public class Calculator extends ActionBarActivity
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('.');
+                NumberPressed('.');
             }
         });
         ButtonNeg.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                //Note: ButtonPressed('-') is the minus operator
+                //Note: NumberPressed('-') is the minus operator
                 //ButtonPressed('n') is the negative sign
-                ButtonPressed('n');
+                NumberPressed('n');
             }
         });
         ButtonSpace.setOnClickListener(new View.OnClickListener()
@@ -244,14 +244,17 @@ public class Calculator extends ActionBarActivity
 
     }
 
-    private void ButtonPressed(char in)
+    private void NumberPressed(char in)
     {	switch(in)
-        {
-            //Note: ButtonPressed('-') is the minus operator
-            //ButtonPressed('n') is the negative sign
+        {   case '.':
+                if(CurrentNum.contains(".")) //If decimal point added to number which already contains a decimal point
+                {   Toast.makeText(context, "WARNING: Number already contains decimal point", Toast.LENGTH_LONG).show();
+                    break;
+                }
+            //Note: OperationPressed('-') is the minus operator
+            //NumberPressed('n') is the negative sign
             case '1': case '2': case '3': case '4': case '5':
             case '6': case '7': case '8': case '9': case '0':
-            case '.':
                 CurrentNum += in;
                 break;
             case 'n':
