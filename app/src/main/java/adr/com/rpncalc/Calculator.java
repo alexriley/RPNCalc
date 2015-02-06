@@ -26,9 +26,7 @@ package adr.com.rpncalc;
  */
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -60,7 +58,7 @@ public class Calculator extends ActionBarActivity
         setContentView(R.layout.activity_calculator);
         Log.v(TAG,"Application started");
         display = (TextView) findViewById(R.id.textView1);
-        displayRefresh();
+        DisplayRefresh();
 
         Button1 = (Button) findViewById(R.id.button1);
         Button2 = (Button) findViewById(R.id.button2);
@@ -160,7 +158,7 @@ public class Calculator extends ActionBarActivity
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('+');
+                OperationPressed(RPNStack.Operation.PLUS);
             }
         });
 
@@ -168,17 +166,14 @@ public class Calculator extends ActionBarActivity
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                //Note: ButtonPressed('-') is the minus operator
-                //ButtonPressed('n') is the negative sign
-                ButtonPressed('-');
+                OperationPressed(RPNStack.Operation.MINUS);
             }
         });
         ButtonMultiply.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                PushCurrentNum();
-                ButtonPressed('*');
+                OperationPressed(RPNStack.Operation.MULTIPLY);
             }
         });
 
@@ -186,7 +181,7 @@ public class Calculator extends ActionBarActivity
         {	@Override
              public void onClick(View v)
             {	// TODO Auto-generated method stub
-                ButtonPressed('/');
+                OperationPressed(RPNStack.Operation.DIVIDE);
 
             }
         });
@@ -211,7 +206,7 @@ public class Calculator extends ActionBarActivity
              public void onClick(View v)
             {	// TODO Auto-generated method stub
                 PushCurrentNum();
-                displayRefresh();
+                DisplayRefresh();
             }
         });
         ButtonBack.setOnClickListener(new View.OnClickListener()
@@ -220,7 +215,7 @@ public class Calculator extends ActionBarActivity
             {	// TODO Auto-generated method stub
                 if(CurrentNum.length() > 0)
                     CurrentNum = CurrentNum.subSequence(0, CurrentNum.length()-1).toString();
-                displayRefresh();
+                DisplayRefresh();
 
             }
         });
@@ -230,7 +225,7 @@ public class Calculator extends ActionBarActivity
             {	// TODO Auto-generated method stub
                 CurrentNum = "";
                 numbers.clear();
-                displayRefresh();
+                DisplayRefresh();
             }
         });
 
@@ -243,7 +238,7 @@ public class Calculator extends ActionBarActivity
         return true;
     }
 
-    private void displayRefresh()
+    private void DisplayRefresh()
     {	display.setText(inputs());
 
 
@@ -263,17 +258,16 @@ public class Calculator extends ActionBarActivity
                 if(CurrentNum.startsWith("-")) CurrentNum = CurrentNum.substring(1);
                 else CurrentNum = '-'+CurrentNum;
                 break;
-            case '+': case '-': case '/': case '*':
-                PushCurrentNum();
-                Log.v(TAG,"Operation entered");
-                if(numbers.op(in) == 1)
-                {   Toast.makeText(context,getString(R.string.ErrorInsuffcientNumbers),Toast.LENGTH_LONG).show();
-                }
-                break;
-
         }
-        displayRefresh();
+        DisplayRefresh();
 
+    }
+    private void OperationPressed(RPNStack.Operation operation)
+    {   PushCurrentNum();
+        if(numbers.op(operation) == 0)
+        {   Toast.makeText(context,getString(R.string.ErrorInsuffcientNumbers),Toast.LENGTH_LONG).show();
+        }
+        DisplayRefresh();
     }
     private boolean PushCurrentNum()
     {	if(CurrentNum.length() > 0)
@@ -284,7 +278,7 @@ public class Calculator extends ActionBarActivity
                 return true;
             }
             catch(NumberFormatException nfe)
-            {   Toast.makeText(context, R.string.Error2DecimalPoints,Toast.LENGTH_LONG).show();
+            {   Toast.makeText(context, "Error: "+CurrentNum+" Not valid number",Toast.LENGTH_LONG).show();
                 CurrentNum="";
                 return false;
             }

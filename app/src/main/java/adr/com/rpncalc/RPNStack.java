@@ -22,29 +22,30 @@ package adr.com.rpncalc;
  */
 
 public class RPNStack extends Stack
-{   //op() returns 0 if operation performed, 1 otherwise
-    public int op(char s)
+{   public enum Operation {PLUS, MINUS, MULTIPLY, DIVIDE, MOD};
+    //op() returns 1 if operation performed, 0 otherwise
+    public int op(Operation operation)
     {	if(this.scount > 1)
     	{	double b=pop(),a=pop();
-    		switch(s)
-    		{	case '+':
+    		switch(operation)
+    		{	case PLUS:
     				push(a+b);
-    				return 0;
-    			case '-':
+    				return 1;
+    			case MINUS:
     				push(a-b);
-    				return 0;
-    			case '*':
+    				return 1;
+    			case MULTIPLY:
     				push(a*b);
-    				return 0;
-    			case '/':
+    				return 1;
+    			case DIVIDE:
     				push(a/b);
-    				return 0;
-    			case '%':
+    				return 1;
+    			case MOD:
     				push(a%b);
-    				return 0;
+    				return 1;
     		}
     	}
-    	else return 1; 
-    	return 1;
+    	else return 0;
+    	return 0;
     }
 }
