@@ -24,6 +24,7 @@ package adr.com.rpncalc;
  *    along with RPN Calc.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -36,11 +37,13 @@ import android.widget.Toast;
 
 import java.lang.String;
 
+import static adr.com.rpncalc.R.layout.activity_calculator;
+
 
 public class Calculator extends ActionBarActivity
 {	RPNStack numbers;
     String CurrentNum;
-    TextView display;
+    TextView StackDisplay, CurrentNumDisplay;
     Context context;
 
     Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8;
@@ -74,9 +77,10 @@ public class Calculator extends ActionBarActivity
         {   numbers = new RPNStack();
             CurrentNum = "";
         }
-        setContentView(R.layout.activity_calculator);
-        Log.v(TAG,"Application started");
-        display = (TextView) findViewById(R.id.textView1);
+        setContentView(activity_calculator);
+        Log.v(TAG, "Application started");
+        StackDisplay = (TextView) findViewById(R.id.textViewStack);
+        CurrentNumDisplay = (TextView) findViewById(R.id.textViewInput);
         DisplayRefresh();
 
         Button1 = (Button) findViewById(R.id.button1);
@@ -271,8 +275,8 @@ public class Calculator extends ActionBarActivity
     }
 
     private void DisplayRefresh()
-    {	display.setText(inputs());
-
+    {	StackDisplay.setText(StackString());
+        CurrentNumDisplay.setText(CurrentNum);
 
     }
 
@@ -323,8 +327,8 @@ public class Calculator extends ActionBarActivity
     }
 
 
-    public String inputs()
-    {	return numbers.toString()+CurrentNum;
+    public String StackString()
+    {	return numbers.toString();
     }
 
 
