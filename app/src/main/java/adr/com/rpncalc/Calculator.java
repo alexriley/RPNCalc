@@ -101,45 +101,46 @@ public class Calculator extends ActionBarActivity
         ButtonBack = (Button) findViewById(R.id.buttonBack);
         ButtonClear = (Button) findViewById(R.id.buttonClear);
 
+
         Button1.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('1');
             }
         });
         Button2.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {// TODO Auto-generated method stub
+            {
                 NumberPressed('2');
             }
         });
         Button3.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('3');
             }
         });
         Button4.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('4');
             }
         });
         Button5.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('5');
             }
         });
         Button6.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('6');
             }
         });
@@ -147,28 +148,28 @@ public class Calculator extends ActionBarActivity
         Button7.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('7');
             }
         });
         Button8.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('8');
             }
         });
         Button9.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('9');
             }
         });
         Button0.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('0');
             }
         });
@@ -176,7 +177,7 @@ public class Calculator extends ActionBarActivity
         ButtonPlus.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 OperationPressed(RPNStack.Operation.PLUS);
             }
         });
@@ -184,14 +185,14 @@ public class Calculator extends ActionBarActivity
         ButtonMinus.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 OperationPressed(RPNStack.Operation.MINUS);
             }
         });
         ButtonMultiply.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 OperationPressed(RPNStack.Operation.MULTIPLY);
             }
         });
@@ -199,30 +200,29 @@ public class Calculator extends ActionBarActivity
         ButtonDivide.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 OperationPressed(RPNStack.Operation.DIVIDE);
 
             }
         });
-        /*ButtonMod.setOnClickListener(new View.OnClickListener()
+        ButtonMod.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 OperationPressed(RPNStack.Operation.MOD);
-
             }
-        });*/
+        });
         ButtonPoint.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 NumberPressed('.');
             }
         });
         ButtonNeg.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 //Note: NumberPressed('-') is the minus operator
                 //ButtonPressed('n') is the negative sign
                 NumberPressed('n');
@@ -231,7 +231,7 @@ public class Calculator extends ActionBarActivity
         ButtonSpace.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 PushCurrentNum();
                 DisplayRefresh();
             }
@@ -239,12 +239,14 @@ public class Calculator extends ActionBarActivity
         ButtonBack.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {    // TODO Auto-generated method stub
+            {
                 if (CurrentNum.length() == 0 && numbers.length() > 0)
-                {   CurrentNum= String.valueOf(numbers.pop());
-                    if(Double.parseDouble(CurrentNum) == Long.getLong(CurrentNum)) CurrentNum=String.format("%d", Long.getLong(CurrentNum));
+                {   double DoubleCurrentNum = numbers.pop();
+                    if(DoubleCurrentNum == (long)DoubleCurrentNum) //testing if DoubleCurrentNum is an Integer (so that 3 is printed instead of 3.0)
+                        CurrentNum=String.format("%d", (long)DoubleCurrentNum);
+                    else CurrentNum = Double.toString(DoubleCurrentNum);
                 }
-                if (CurrentNum.length() > 0)
+                else if (CurrentNum.length() > 0)
                     CurrentNum = CurrentNum.subSequence(0, CurrentNum.length() - 1).toString();
                 DisplayRefresh();
 
@@ -253,7 +255,7 @@ public class Calculator extends ActionBarActivity
         ButtonClear.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
+            {
                 CurrentNum = "";
                 numbers.clear();
                 DisplayRefresh();
