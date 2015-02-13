@@ -38,23 +38,42 @@ import java.lang.String;
 
 
 public class Calculator extends ActionBarActivity
-{	RPNStack numbers = new RPNStack();
-    String CurrentNum = new String("");
+{	RPNStack numbers;
+    String CurrentNum;
     TextView display;
     Context context;
 
     Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8;
     Button Button9, Button0, ButtonPlus, ButtonMinus, ButtonMultiply, ButtonDivide;
-    Button ButtonPoint, ButtonNeg, ButtonSpace, ButtonBack, ButtonClear;
+    Button ButtonPoint, ButtonNeg, ButtonSpace, ButtonBack, ButtonClear, ButtonMod;
 
-    public static final String TAG = "Calculator";
+    private static final String TAG = "Calculator";
+    private static final String ARRAY_KEY = "array"; //keys are for saving instance state
+    private static final String CURRENTNUM_KEY = "currentnum";
+    private static final String LENGTH_KEY = "length";
 
-
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) //
+    {   super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putDoubleArray(ARRAY_KEY, numbers.getStack());
+        savedInstanceState.putString(CURRENTNUM_KEY,CurrentNum);
+        savedInstanceState.putInt(LENGTH_KEY, numbers.length());
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
+
+        if(savedInstanceState != null)
+        {   numbers = new RPNStack(savedInstanceState.getDoubleArray(ARRAY_KEY), savedInstanceState.getInt(LENGTH_KEY));
+            CurrentNum = savedInstanceState.getString(CURRENTNUM_KEY);
+
+        }
+        else
+        {   numbers = new RPNStack();
+            CurrentNum = "";
+        }
         setContentView(R.layout.activity_calculator);
         Log.v(TAG,"Application started");
         display = (TextView) findViewById(R.id.textView1);
@@ -71,11 +90,11 @@ public class Calculator extends ActionBarActivity
         Button9 = (Button) findViewById(R.id.button9);
         Button0 = (Button) findViewById(R.id.button0);
 
-
         ButtonPlus = (Button) findViewById(R.id.buttonPlus);
         ButtonMinus = (Button) findViewById(R.id.buttonMinus);
         ButtonMultiply = (Button) findViewById(R.id.buttonMultiply);
         ButtonDivide = (Button) findViewById(R.id.buttonDivide);
+        ButtonMod = (Button) findViewById(R.id.buttonMod);
         ButtonPoint = (Button) findViewById(R.id.buttonPoint);
         ButtonNeg = (Button) findViewById(R.id.buttonNeg);
         ButtonSpace = (Button) findViewById(R.id.buttonSpace);
@@ -185,6 +204,14 @@ public class Calculator extends ActionBarActivity
 
             }
         });
+        /*ButtonMod.setOnClickListener(new View.OnClickListener()
+        {	@Override
+             public void onClick(View v)
+            {	// TODO Auto-generated method stub
+                OperationPressed(RPNStack.Operation.MOD);
+
+            }
+        });*/
         ButtonPoint.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
@@ -212,9 +239,13 @@ public class Calculator extends ActionBarActivity
         ButtonBack.setOnClickListener(new View.OnClickListener()
         {	@Override
              public void onClick(View v)
-            {	// TODO Auto-generated method stub
-                if(CurrentNum.length() > 0)
-                    CurrentNum = CurrentNum.subSequence(0, CurrentNum.length()-1).toString();
+            {    // TODO Auto-generated method stub
+                if (CurrentNum.length() == 0 && numbers.length() > 0)
+                {   CurrentNum= String.valueOf(numbers.pop());
+                    if(Double.parseDouble(CurrentNum) == Long.getLong(CurrentNum)) CurrentNum=String.format("%d", Long.getLong(CurrentNum));
+                }
+                if (CurrentNum.length() > 0)
+                    CurrentNum = CurrentNum.subSequence(0, CurrentNum.length() - 1).toString();
                 DisplayRefresh();
 
             }
@@ -228,7 +259,6 @@ public class Calculator extends ActionBarActivity
                 DisplayRefresh();
             }
         });
-
 
     }
     @Override
