@@ -6,4 +6,5 @@
 /.idea/inspectionProfiles
 .DS_Store
 /build
+*.log
 *~

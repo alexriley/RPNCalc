@@ -24,9 +24,13 @@ package adr.com.rpncalc;
  */
 import java.lang.String;
 import java.lang.reflect.Array;
-public class Stack 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
+public class Stack
 {
-    private int STACKSIZE = 50;
+    private int STACKSIZE = 8;
 	double[] stack;
 	int scount;
 
@@ -41,14 +45,28 @@ public class Stack
         stack[0] = 0;
     }
     public void push(double a)
-    {	if(scount < 50) 
-    	{	stack[scount] = a;
-            scount++;
+    {	if(scount >= STACKSIZE-2)
+    	{	ExpandStack();
     	}
+        stack[scount] = a;
+        scount++;
     }
-    
+    private void ExpandStack()
+    {   double[] OldStack = stack;
+        stack = new double[STACKSIZE * 2];
+        for(int x=0; x<STACKSIZE-1;x++) stack[x] = OldStack[x];
+        STACKSIZE *=2;
+    }
+    private void ContractStack()
+    {   double[] OldStack = stack;
+        stack = new double[STACKSIZE/2];
+        for(int x=0; x<(STACKSIZE/2);x++) stack[x] = OldStack[x];
+        STACKSIZE /= 2;
+
+    }
     public double pop()
-    {	if(scount > 0) return stack[--scount];
+    {	if(scount < STACKSIZE / 4 && STACKSIZE > 8) ContractStack();
+        if(scount > 0) return stack[--scount];
     	else return 0; 
     }
     public double peek()
@@ -70,7 +88,7 @@ public class Stack
     	for(int i = 0; i < scount; i++)
     	{	if(stack[i] == (long)stack[i]) //testing if stack[i] is an Integer (so that 3 is printed instead of 3.0)
                 s=s+String.format("%d", (long)stack[i]) + " ";
-            else s = s+Double.toString(stack[i])+" ";
+            else s = s+String.format("%.4f", stack[i])+" ";
     	}
     	
     	return s;
@@ -80,12 +98,5 @@ public class Stack
     {   for(int n = this.scount; n < STACKSIZE; n++) stack[n] = 0;// this removes those numbers when returning the array
         return stack;
     }
-    /*
-    private boolean ExpandStack()
-    {   double[] NewStack = new double[STACKSIZE * 2];
-        for(int x=0; x<STACKSIZE; x++) NewStack[x] = stack[x];
-        stack = NewStack;
-        return true;
-    }
-    */
+
 }

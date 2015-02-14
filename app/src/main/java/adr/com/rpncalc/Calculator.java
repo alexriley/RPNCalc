@@ -40,7 +40,7 @@ import java.lang.String;
 public class Calculator extends ActionBarActivity
 {	RPNStack numbers;
     String CurrentNum;
-    TextView display;
+    TextView StackDisplay, CurrentNumDisplay;
     Context context;
 
     Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8;
@@ -76,7 +76,8 @@ public class Calculator extends ActionBarActivity
         }
         setContentView(R.layout.activity_calculator);
         Log.v(TAG,"Application started");
-        display = (TextView) findViewById(R.id.textView1);
+        StackDisplay = (TextView) findViewById(R.id.textViewStack);
+        CurrentNumDisplay = (TextView) findViewById(R.id.textViewCurrentNum);
         DisplayRefresh();
 
         Button1 = (Button) findViewById(R.id.button1);
@@ -272,7 +273,8 @@ public class Calculator extends ActionBarActivity
     }
 
     private void DisplayRefresh()
-    {	display.setText(inputs());
+    {	StackDisplay.setText(StackString());
+        CurrentNumDisplay.setText(CurrentNum);
 
 
     }
@@ -324,8 +326,8 @@ public class Calculator extends ActionBarActivity
     }
 
 
-    public String inputs()
-    {	return numbers.toString()+CurrentNum;
+    public String StackString()
+    {	return numbers.toString();
     }
 
 
