@@ -22,7 +22,7 @@
     <string name="Point">.</string>
     <string name="Mod">%</string>
     <string name="Back">BACK</string>
-    <string name="Space">SPACE</string>
+    <string name="Space">ENTER</string>
     <string name="Clear">CLEAR</string>
     <string name="ExampleText">Example Text</string>
     <string name="ErrorInsuffcientNumbers">ERROR: Operations require 2 numbers</string>

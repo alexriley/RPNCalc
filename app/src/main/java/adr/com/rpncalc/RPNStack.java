@@ -22,7 +22,14 @@ package adr.com.rpncalc;
  */
 
 public class RPNStack extends Stack
-{   public enum Operation {PLUS, MINUS, MULTIPLY, DIVIDE, MOD};
+{   public RPNStack()
+    {   super();
+    }
+
+    public RPNStack(double[] OldStack, int OldScount)
+    {   super(OldStack,OldScount);
+    }
+    public enum Operation {PLUS, MINUS, MULTIPLY, DIVIDE, MOD};
     //op() returns 1 if operation performed, 0 otherwise
     public int op(Operation operation)
     {	if(this.scount > 1)
@@ -48,4 +55,6 @@ public class RPNStack extends Stack
     	else return 0;
     	return 0;
     }
+
+
 }

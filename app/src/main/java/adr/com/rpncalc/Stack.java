@@ -26,17 +26,20 @@ import java.lang.String;
 import java.lang.reflect.Array;
 public class Stack 
 {
-	double[] stack = new double[50];
-	int scount = 0;
-	public Stack()
-	{	scount = 0;
-		stack[0] = 0;
+    private int STACKSIZE = 50;
+	double[] stack;
+	int scount;
+
+	public Stack(double[] OldStack, int OldScount)
+	{	scount= OldScount;
+        stack=OldStack;
+		//for(int i = 0; i > n; i++) stack[i] = a[i];
 	}
-	
-	public Stack(double[] a)
-	{	int n = Array.getLength(a);
-		for(int i = 0; i > n; i++) stack[i] = a[i];
-	}
+    public Stack()
+    {	stack = new double[STACKSIZE];
+        scount = 0;
+        stack[0] = 0;
+    }
     public void push(double a)
     {	if(scount < 50) 
     	{	stack[scount] = a;
@@ -73,4 +76,16 @@ public class Stack
     	return s;
     	
     }
+    public double[] getStack() //When numbers are popped from stack, they are not removed, only scount is decremented
+    {   for(int n = this.scount; n < STACKSIZE; n++) stack[n] = 0;// this removes those numbers when returning the array
+        return stack;
+    }
+    /*
+    private boolean ExpandStack()
+    {   double[] NewStack = new double[STACKSIZE * 2];
+        for(int x=0; x<STACKSIZE; x++) NewStack[x] = stack[x];
+        stack = NewStack;
+        return true;
+    }
+    */
 }

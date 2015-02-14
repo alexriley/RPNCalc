@@ -171,18 +171,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/Back"
-                    android:textSize="16sp"/>
+                    android:textSize="12sp"/>
             <Button android:layout_weight=".25"
                     android:id="@+id/buttonSpace"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/Space"
-                    android:textSize="16sp"/>
+                    android:textSize="12sp"/>
             <Button android:layout_weight=".25"
                     android:id="@+id/buttonClear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/Clear"
+                    android:textSize="12sp"/>
+            <Button android:layout_weight=".25"
+                    android:id="@+id/buttonMod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Mod"
                     android:textSize="16sp"/>
 
         </TableRow>
