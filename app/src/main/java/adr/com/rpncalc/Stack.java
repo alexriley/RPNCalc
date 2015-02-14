@@ -1,7 +1,7 @@
 package adr.com.rpncalc;
 /*	File: Stack.java 
  *	Original Author: Alex Riley <alex@riley.cc>
- * 	Description: Basic FIFO Stack with push, pop, peek, etc.
+ * 	Description: Basic LIFO Stack with push, pop, peek, etc.
  * 	This is further expanded in RPNStack to included Reverse Polish Notation 
  * 	operators.
  * 
@@ -37,6 +37,7 @@ public class Stack
 	public Stack(double[] OldStack, int OldScount)
 	{	scount= OldScount;
         stack=OldStack;
+        STACKSIZE = stack.length;
 		//for(int i = 0; i > n; i++) stack[i] = a[i];
 	}
     public Stack()
